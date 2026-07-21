@@ -9,9 +9,10 @@ export interface EstadoAuth {
   mensagem?: string;
 }
 
+// Apenas caminhos internos — bloqueia open redirect ("//evil.com", "/\evil.com").
 function destinoSeguro(proximo: FormDataEntryValue | null): string {
   const p = typeof proximo === 'string' ? proximo : '';
-  return p.startsWith('/') && !p.startsWith('//') ? p : '/';
+  return p.startsWith('/') && !p.startsWith('//') && !p.startsWith('/\\') ? p : '/';
 }
 
 export async function entrar(_prev: EstadoAuth, formData: FormData): Promise<EstadoAuth> {
