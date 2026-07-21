@@ -1,10 +1,11 @@
 {
   "type": "FeatureCollection",
+  "name": "Piloto Bloco CA + Biblioteca — espelho de supabase/migrations/0002 (seed §7)",
   "features": [
     {
       "type": "Feature",
       "properties": { "tipo": "entrada_acessivel", "nome": "Entrada acessível — Bloco CA" },
-      "geometry": { "type": "Point", "coordinates": [-35.9078, -7.2170] }
+      "geometry": { "type": "Point", "coordinates": [-35.9078, -7.217] }
     },
     {
       "type": "Feature",
@@ -13,8 +14,38 @@
     },
     {
       "type": "Feature",
-      "properties": { "tipo": "banheiro_acessivel", "nome": "Banheiro acessível — Bloco CA" },
-      "geometry": { "type": "Point", "coordinates": [-35.9080, -7.2172] }
+      "properties": { "tipo": "elevador", "nome": "Elevador — Bloco CA" },
+      "geometry": { "type": "Point", "coordinates": [-35.908, -7.21705] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "tipo": "banheiro_acessivel", "nome": "Banheiro acessível — Bloco CA (térreo)" },
+      "geometry": { "type": "Point", "coordinates": [-35.90805, -7.2172] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "tipo": "piso_tatil", "nome": "Piso tátil — corredor central CA" },
+      "geometry": { "type": "Point", "coordinates": [-35.9077, -7.21715] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "tipo": "entrada_acessivel", "nome": "Entrada acessível — Biblioteca" },
+      "geometry": { "type": "Point", "coordinates": [-35.9088, -7.2176] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "tipo": "rampa", "nome": "Rampa — Biblioteca" },
+      "geometry": { "type": "Point", "coordinates": [-35.9087, -7.21755] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "tipo": "banheiro_acessivel", "nome": "Banheiro acessível — Biblioteca" },
+      "geometry": { "type": "Point", "coordinates": [-35.9089, -7.2177] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "tipo": "piso_tatil", "nome": "Piso tátil — calçada CA↔Biblioteca" },
+      "geometry": { "type": "Point", "coordinates": [-35.9083, -7.21735] }
     }
   ]
 }

@@ -29,3 +29,8 @@ npm-debug.log*
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# artefatos locais
+*.bundle
+.playwright-mcp/
+tsconfig.tsbuildinfo

@@ -80,12 +80,24 @@ npm install
 cp .env.example .env.local
 #   edite .env.local com as chaves do seu projeto Supabase e do provedor de IA
 
-# 3. Aplicar o esquema do banco (via Supabase CLI, ou cole o SQL no editor do Supabase)
-#    supabase/migrations/0001_init.sql
+# 3. Aplicar o esquema do banco
+#    Opção A — Supabase local (requer Docker):
+npx supabase start          # sobe Postgres+Auth+Storage locais e aplica supabase/migrations/
+npx supabase status         # copie API URL e anon key para o .env.local
+#    Opção B — projeto hospedado: npx supabase link && npx supabase db push
 
 # 4. Rodar em desenvolvimento
 npm run dev
 #   abre em http://localhost:3000
+```
+
+### Criar um usuário gestor
+
+Depois de criar a conta normalmente pelo app, promova-a no banco:
+
+```bash
+# edite o e-mail em scripts/promover-gestor.sql e rode no SQL Editor do Supabase
+# (dev local: npx supabase db query --file scripts/promover-gestor.sql)
 ```
 
 ### Scripts disponíveis
@@ -97,6 +109,7 @@ npm run dev
 | `npm run start` | Sobe o build |
 | `npm run lint` | ESLint (inclui regras de acessibilidade) |
 | `npm run typecheck` | Checagem de tipos (tsc) |
+| `npm test` | Testes unitários (vitest) — roteamento e contrato da IA |
 | `npm run format` | Prettier |
 
 ## 🔑 Variáveis de ambiente
@@ -122,8 +135,9 @@ Veja [`.env.example`](.env.example). Resumo:
 4. Abaixo do limiar de confiança **ou** em falha/timeout, o app cai no **preenchimento
    manual** — a IA nunca bloqueia o envio (degradação graciosa).
 
-O ponto de integração com o provedor real está marcado com `TODO(US-07)` em
-[`src/lib/ia/client.ts`](src/lib/ia/client.ts).
+A integração usa a API da Anthropic (Claude, modelo configurável via `IA_MODEL`) em
+[`src/lib/ia/client.ts`](src/lib/ia/client.ts). Sem `IA_API_KEY` válida, o app funciona
+normalmente em modo manual.
 
 ## ♿ Acessibilidade
 

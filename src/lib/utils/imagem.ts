@@ -7,8 +7,34 @@ export interface ResultadoCompressao {
   altura: number;
 }
 
-// TODO(US-06): implementar compressão via <canvas> (redimensionar p/ ~1280px,
-// exportar como JPEG ~0.7). Redesenhar em canvas já descarta o EXIF.
-export async function comprimirImagem(_file: File): Promise<ResultadoCompressao> {
-  throw new Error('comprimirImagem: implementar (stub US-06).');
+const LADO_MAXIMO = 1280;
+const QUALIDADE_JPEG = 0.72;
+
+// Redimensiona para no máximo 1280px no maior lado e exporta JPEG ~0.72.
+// Redesenhar em canvas descarta o EXIF (inclusive geolocalização do arquivo).
+export async function comprimirImagem(file: File): Promise<ResultadoCompressao> {
+  const bitmap = await createImageBitmap(file);
+  try {
+    const escala = Math.min(1, LADO_MAXIMO / Math.max(bitmap.width, bitmap.height));
+    const largura = Math.max(1, Math.round(bitmap.width * escala));
+    const altura = Math.max(1, Math.round(bitmap.height * escala));
+
+    const canvas = document.createElement('canvas');
+    canvas.width = largura;
+    canvas.height = altura;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('canvas 2d indisponível');
+    ctx.drawImage(bitmap, 0, 0, largura, altura);
+
+    const arquivo = await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob(
+        (blob) => (blob ? resolve(blob) : reject(new Error('falha ao exportar JPEG'))),
+        'image/jpeg',
+        QUALIDADE_JPEG,
+      );
+    });
+    return { arquivo, largura, altura };
+  } finally {
+    bitmap.close();
+  }
 }

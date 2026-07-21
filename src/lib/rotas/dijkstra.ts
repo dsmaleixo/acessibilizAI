@@ -52,10 +52,28 @@ export function menorCaminho(
   return caminhoIds.map((id) => byId.get(id)!).filter(Boolean);
 }
 
-// Descrição textual acessível da rota (US-20).
+// Distância aproximada em metros entre dois nós (haversine).
+function distanciaMetros(a: No, b: No): number {
+  const R = 6371000;
+  const rad = Math.PI / 180;
+  const dLat = (b.lat - a.lat) * rad;
+  const dLng = (b.lng - a.lng) * rad;
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+// Descrição textual acessível da rota, passo a passo (US-20).
 export function descreverRota(caminho: No[]): string[] {
   if (caminho.length === 0) return ['Nenhuma rota acessível encontrada.'];
-  return caminho.map((n, i) =>
-    i === 0 ? `Partida: ${n.nome}.` : `Siga até ${n.nome}.`,
-  );
+  if (caminho.length === 1) return [`Você já está em ${caminho[0].nome}.`];
+
+  const passos = caminho.map((n, i) => {
+    if (i === 0) return `Partida: ${n.nome}.`;
+    const metros = Math.round(distanciaMetros(caminho[i - 1], n));
+    const chegada = i === caminho.length - 1 ? 'Chegada' : 'Siga';
+    return `${chegada}: ${n.nome} (aproximadamente ${metros} metros).`;
+  });
+  return passos;
 }
