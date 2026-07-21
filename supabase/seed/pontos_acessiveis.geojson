@@ -1,0 +1,20 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "tipo": "entrada_acessivel", "nome": "Entrada acessível — Bloco CA" },
+      "geometry": { "type": "Point", "coordinates": [-35.9078, -7.2170] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "tipo": "rampa", "nome": "Rampa — Bloco CA (térreo)" },
+      "geometry": { "type": "Point", "coordinates": [-35.9079, -7.2171] }
+    },
+    {
+      "type": "Feature",
+      "properties": { "tipo": "banheiro_acessivel", "nome": "Banheiro acessível — Bloco CA" },
+      "geometry": { "type": "Point", "coordinates": [-35.9080, -7.2172] }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Acessibilidade: foco sempre visível (WCAG 2.4.7). */
+:focus-visible {
+  outline: 3px solid #0b5fff;
+  outline-offset: 2px;
+}
+
+/* Link "pular para o conteúdo" para usuários de teclado/leitor de tela. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: #083fb0;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 0;
+}
